@@ -21,10 +21,10 @@ public class ATMApplication {
         Banknote banknote;
         String enteredAction = null;
         boolean isValidAction = false;
-        boolean isProcessGoing = false;
+        boolean isProcessGoing = true;
         boolean isFirstIteration = true;
 
-        while (!isProcessGoing) {
+        while (isProcessGoing) {
 
             if (isFirstIteration) {
                 System.out.println("\nWelcome to ATM!\nATM menu:\nEnter a action:\n1 - deposit\n2 - withdraw\n3 - check balance\n4 - exit");
@@ -134,7 +134,7 @@ public class ATMApplication {
             }
 
             if (action == 4) {
-                isProcessGoing = true;
+                isProcessGoing = false;
             }
         }
     }
