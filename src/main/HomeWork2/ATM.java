@@ -30,7 +30,6 @@ public class ATM {
             if (currentCurrencyNominalsCount >= CASSETTE_CAPACITY.getOrDefault(banknote.currency, 0)) {
                 System.err.println("Cassette for " + banknote.currency + " is full");
             } else {
-                System.out.println("Test banknote counts: " + banknoteCount);
                 int cassetteCapacity = CASSETTE_CAPACITY.get(banknote.currency);
 
                 if (currentCurrencyNominalsCount + banknoteCount <= cassetteCapacity) {

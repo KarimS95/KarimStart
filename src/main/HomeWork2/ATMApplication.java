@@ -31,15 +31,24 @@ public class ATMApplication {
                 isFirstIteration = false;
 
             } else {
-                if (!isValidAction) {
-                    System.err.println("Invalid action\nEnter a action:\n1 - deposit\n2 - withdraw\n3 - checking balance\n4 - Exit");
-                    return;
-                }
                 System.out.println("\nATM menu:\nEnter a action:\n1 - deposit\n2 - withdraw\n3 - check balance\n4 - exit");
             }
 
             try {
                 action = Integer.parseInt(scan.nextLine());
+
+                for (int validAction : availableActions) {
+                    if (validAction == action) {
+                        isValidAction = true;
+                        break;
+                    }
+                }
+
+                if (!isValidAction) {
+                    System.err.println("Invalid action\nEnter a action:\n1 - deposit\n2 - withdraw\n3 - checking balance\n4 - Exit");
+                }
+
+                isValidAction = false;
 
                 switch (action) {
                     case 1:
@@ -56,17 +65,8 @@ public class ATMApplication {
                         break;
                 }
 
-                for (int validAction : availableActions) {
-                    if (validAction == action) {
-                        isValidAction = true;
-                        break;
-                    }
-                }
-                if (!isValidAction) {
-                    System.err.println("Invalid action\nEnter a action:\n1 - deposit\n2 - withdraw\n3 - checking balance\n4 - Exit");
-                    return;
-                }
                 switch (action) {
+
                     case 1:
                         System.out.println("Enter a currency from: ");
 
