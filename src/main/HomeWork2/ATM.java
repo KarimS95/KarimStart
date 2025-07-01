@@ -122,16 +122,15 @@ public class ATM {
     //Логика проверки вычисления суммы купюр, необходимых для покрытия суммы amount. Например: Для суммы 1470 EUR нужно использовать 7 купюр по 200, 1 купюру 50 и 1 купюру 20
     public static int amountValidator(BigDecimal amount, Currency currency) {
         int countOfBills = 0;
-        //Проверка на возможность внести сумму, с учетом доступных для ввода номиналов купюр: например: сумме в 1471 евро не получится внести, т.к. минимальная возможная купюра, которую банкомат может принять для данной валюты, не покроет всю сумму без остатка
             switch (currency) {
                 case USD:
-                    if (amount.remainder(BigDecimal.valueOf(1)).equals(BigDecimal.ZERO)) {
+                    if (amount.remainder(BigDecimal.valueOf(1)).equals(BigDecimal.ZERO)) { //Проверка на возможность внести сумму, с учетом доступных для ввода номиналов купюр: например: сумму в 1471 евро не получится внести, т.к. минимальная возможная купюра, которую банкомат может принять для данной валюты, не покроет всю сумму без остатка
                         String[] AVAILABLE_USD_NOMINALS = {"100", "50", "20", "10", "5", "1"};
                         int[] countUsdBills = new int[AVAILABLE_USD_NOMINALS.length];
                         for (int i = 0; i < AVAILABLE_USD_NOMINALS.length; i++) {
                             BigDecimal billValue = new BigDecimal(AVAILABLE_USD_NOMINALS[i]);
-                            countUsdBills[i] = amount.divideToIntegralValue(billValue).intValue();
-                            amount = amount.remainder(billValue);
+                            countUsdBills[i] = amount.divideToIntegralValue(billValue).intValue(); //237 / 100 = 2 (без остатка) - сколько целых купюр номиналом 100 потребуется для покрытия суммы в 237
+                            amount = amount.remainder(billValue); //Вычисление значения amount в результате получения остатка при делении: 237 / 100 = 2.37 ; 237 - (2*100) = 37; 37 / 20 = 1.85; 37 - (1*20) = 17 и т.д.
                             countOfBills += countUsdBills[i];
                         }
                         break;
