@@ -16,12 +16,13 @@ public class ATM {
     static Map<Currency, Integer> cassette = new HashMap<>();
 
     static { //Инициализация кассет валют
-        cassette.put(USD, 20); //20 купюр (если totalUsdAmount = 2000 y.e., то 20 шт usd купюр = 100 номиналом каждая)
-        cassette.put(EUR, 40); //10 купюр (если totalEurAmount = 4000 y.e., то 40 шт eur купюр = 200 номиналом каждая)
-        cassette.put(RUB, 50); //40 купюр (если totalRubAmount = 5000 y.e., то 50 шт rub купюр = 50 номиналом каждая)
+        cassette.put(USD, 20); //20 купюр (если totalUsdAmount = 2000, то 20 шт usd купюр = например: 100 номиналом каждая)
+        cassette.put(EUR, 40); //10 купюр (если totalEurAmount = 4000, то 40 шт eur купюр = например: 200 номиналом каждая)
+        cassette.put(RUB, 50); //40 купюр (если totalRubAmount = 5000, то 50 шт rub купюр = например: 50 номиналом каждая)
     }
 
-    private static BigDecimal totalUsdAmount = BigDecimal.valueOf(2000); //Инициализация общего начального баланса банкомата: 200 у.е.
+    //Инициализация баланса банкомата для каждой валюты
+    private static BigDecimal totalUsdAmount = BigDecimal.valueOf(2000);
     private static BigDecimal totalEurAmount = BigDecimal.valueOf(4000);
     private static BigDecimal totalRubAmount = BigDecimal.valueOf(5000);
 
