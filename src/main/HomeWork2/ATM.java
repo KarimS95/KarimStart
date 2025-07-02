@@ -16,14 +16,16 @@ public class ATM {
     static Map<Currency, Integer> cassette = new HashMap<>();
 
     static { //Инициализация кассет валют
-        cassette.put(USD, 20); //20 купюр (если totalAmount = 2000 y.e., то 20 шт usd купюр = 100 номиналом каждая)
-        cassette.put(EUR, 10); //10 купюр (если totalAmount = 2000 y.e., то 10 шт eur купюр = 200 номиналом каждая)
-        cassette.put(RUB, 40); //40 купюр (если totalAmount = 2000 y.e., то 40 шт rub купюр = 50 номиналом каждая)
+        cassette.put(USD, 20); //20 купюр (если totalUsdAmount = 2000 y.e., то 20 шт usd купюр = 100 номиналом каждая)
+        cassette.put(EUR, 40); //10 купюр (если totalEurAmount = 4000 y.e., то 40 шт eur купюр = 200 номиналом каждая)
+        cassette.put(RUB, 50); //40 купюр (если totalRubAmount = 5000 y.e., то 50 шт rub купюр = 50 номиналом каждая)
     }
 
-    private static BigDecimal totalAmount = BigDecimal.valueOf(2000); //Инициализация общего начального баланса банкомата: 200 у.е.
+    private static BigDecimal totalUsdAmount = BigDecimal.valueOf(2000); //Инициализация общего начального баланса банкомата: 200 у.е.
+    private static BigDecimal totalEurAmount = BigDecimal.valueOf(4000);
+    private static BigDecimal totalRubAmount = BigDecimal.valueOf(5000);
 
-    public static void deposit(Banknote banknote, BigDecimal amount) {
+    public static void deposit(Currency currency, Banknote banknote, BigDecimal amount) {
         if (cassette != null) {
             int banknoteCount = amountValidator(amount, banknote.currency);
             Integer currentCurrencyNominalsCount = cassette.get(banknote.currency); //Создание Integer переменной-ссылки на значение кассеты определенной валюты
@@ -35,7 +37,7 @@ public class ATM {
                 if (currentCurrencyNominalsCount + banknoteCount <= cassetteCapacity) {
                     int updatedNominalCount = currentCurrencyNominalsCount + banknoteCount; //Обновление количества номиналов в кассете валюты
 
-                    System.out.println("\nCurrent balance: " + ATM.getBalance() + "\nCurrent capacity: " + cassette.entrySet());
+                    System.out.println("\nCurrent balance: " + ATM.getBalance(currency) + "\nCurrent capacity: " + cassette.entrySet());
                     cassette.put(banknote.currency, updatedNominalCount);
                     System.out.println("\nDeposit successful: +" + amount + " " + banknote.currency);
                 } else {
@@ -48,25 +50,55 @@ public class ATM {
         }
     }
 
-    public static void withdraw(Banknote banknote, BigDecimal amount) {
+    public static void withdraw(Currency currency, Banknote banknote, BigDecimal amount) {
         if (cassette != null) {
             int banknoteCount = amountValidator(amount, banknote.currency);
             Integer currentCurrencyNominalsCount = cassette.get(banknote.currency);
             int updatedNominalCount = currentCurrencyNominalsCount - banknoteCount;
 
-            if ((currentCurrencyNominalsCount - banknoteCount >= currentCurrencyNominalsCount) || currentCurrencyNominalsCount > 1 && totalAmount.compareTo(amount) > 0) {
-                //Если кассета валюты и общая вместимость кассеты равны или больше 1 и общий баланс больше 0, то можно провести снятие средств
+            switch (currency) {
+                case USD:
+                    if ((currentCurrencyNominalsCount - banknoteCount >= currentCurrencyNominalsCount) || currentCurrencyNominalsCount > 1 && totalUsdAmount.compareTo(amount) > 0) {
+                        //Если кассета валюты и общая вместимость кассеты равны или больше 1 и общий баланс больше 0, то можно провести снятие средств
 
-                System.out.println("\nCurrent balance: " + ATM.getBalance() + "\nCurrent capacity: " + cassette.entrySet());
-                cassette.put(banknote.currency, updatedNominalCount);
-                System.out.println("\nWithdrawn successful: -" + amount + " " + banknote.currency);
+                        System.out.println("\nCurrent balance: " + ATM.getBalance(currency) + "\nCurrent capacity: " + cassette.entrySet());
+                        cassette.put(banknote.currency, updatedNominalCount);
+                        System.out.println("\nWithdrawn successful: -" + amount + " " + banknote.currency);
+                    } else if (currentCurrencyNominalsCount < banknoteCount) {
+                        System.err.println("There are not enough nominals in the cassette: " + "\n" + "Current nominals state: " + currentCurrencyNominalsCount + "\nEntered nominals: " + banknoteCount);
+                        System.exit(1);
+                    } else if ((totalUsdAmount.subtract(amount).compareTo(BigDecimal.ZERO) < 0)) {
+                        System.err.println("There are not enough balance in ATM: " + "\n" + "Current balance: " + ATM.getBalance(currency) + "\nEntered amount: " + amount);
+                        System.exit(1);
+                    }
 
-            } else if (currentCurrencyNominalsCount < banknoteCount) {
-                System.err.println("There are not enough nominals in the cassette: " + "\n" + "Current nominals state: " + currentCurrencyNominalsCount + "\nEntered nominals: " + banknoteCount);
-                System.exit(1);
-            } else if ((totalAmount.subtract(amount).compareTo(BigDecimal.ZERO) < 0)) {
-                System.err.println("There are not enough balance in ATM: " + "\n" + "Current balance: " + ATM.getBalance() + "\nEntered amount: " + amount);
-                System.exit(1);
+                case EUR:
+                    if ((currentCurrencyNominalsCount - banknoteCount >= currentCurrencyNominalsCount) || currentCurrencyNominalsCount > 1 && totalEurAmount.compareTo(amount) > 0) {
+
+                        System.out.println("\nCurrent balance: " + ATM.getBalance(currency) + "\nCurrent capacity: " + cassette.entrySet());
+                        cassette.put(banknote.currency, updatedNominalCount);
+                        System.out.println("\nWithdrawn successful: -" + amount + " " + banknote.currency);
+                    } else if (currentCurrencyNominalsCount < banknoteCount) {
+                        System.err.println("There are not enough nominals in the cassette: " + "\n" + "Current nominals state: " + currentCurrencyNominalsCount + "\nEntered nominals: " + banknoteCount);
+                        System.exit(1);
+                    } else if ((totalEurAmount.subtract(amount).compareTo(BigDecimal.ZERO) < 0)) {
+                        System.err.println("There are not enough balance in ATM: " + "\n" + "Current balance: " + ATM.getBalance(currency) + "\nEntered amount: " + amount);
+                        System.exit(1);
+                    }
+
+                case RUB:
+                    if ((currentCurrencyNominalsCount - banknoteCount >= currentCurrencyNominalsCount) || currentCurrencyNominalsCount > 1 && totalRubAmount.compareTo(amount) > 0) {
+
+                        System.out.println("\nCurrent balance: " + ATM.getBalance(currency) + "\nCurrent capacity: " + cassette.entrySet());
+                        cassette.put(banknote.currency, updatedNominalCount);
+                        System.out.println("\nWithdrawn successful: -" + amount + " " + banknote.currency);
+                    } else if (currentCurrencyNominalsCount < banknoteCount) {
+                        System.err.println("There are not enough nominals in the cassette: " + "\n" + "Current nominals state: " + currentCurrencyNominalsCount + "\nEntered nominals: " + banknoteCount);
+                        System.exit(1);
+                    } else if ((totalRubAmount.subtract(amount).compareTo(BigDecimal.ZERO) < 0)) {
+                        System.err.println("There are not enough balance in ATM: " + "\n" + "Current balance: " + ATM.getBalance(currency) + "\nEntered amount: " + amount);
+                        System.exit(1);
+                    }
             }
         }
     }
@@ -84,13 +116,32 @@ public class ATM {
         }
     }
 
-    public static void calcTotalAmount(BigDecimal amount, int action) {
+    public static void calcTotalAmount(Currency currency, BigDecimal amount, int action) {
         switch (action) {
             case 1:
-                totalAmount = totalAmount.add(amount);
+                switch (currency) {
+                    case USD:
+                        totalUsdAmount = totalUsdAmount.add(amount);
+                        break;
+                    case EUR:
+                        totalEurAmount = totalEurAmount.add(amount);
+                        break;
+                    case RUB:
+                        totalRubAmount = totalRubAmount.add(amount);
+                }
                 break;
+
             case 2:
-                totalAmount = totalAmount.subtract(amount);
+                switch (currency) {
+                    case USD:
+                        totalUsdAmount = totalUsdAmount.subtract(amount);
+                        break;
+                    case EUR:
+                        totalEurAmount = totalEurAmount.subtract(amount);
+                        break;
+                    case RUB:
+                        totalRubAmount = totalRubAmount.subtract(amount);
+                }
                 break;
         }
 
@@ -101,13 +152,13 @@ public class ATM {
             case 1, 2:
                 switch (banknote.currency) {
                     case USD:
-                        System.out.println("Operation result:\nUSD amount: " + totalAmount + ", nominal: " + banknote.nominal + "\n\nCurrent balance: " + totalAmount + "\nCurrent capacity: " + cassette.entrySet());
+                        System.out.println("Operation result:\nUSD amount: " + totalUsdAmount + ", nominal: " + banknote.nominal + "\n\nCurrent balance: " + totalUsdAmount + "\nCurrent capacity: " + cassette.entrySet());
                         return;
                     case EUR:
-                        System.out.println("Operation result:\nEUR " + totalAmount + ", nominal: " + banknote.nominal + "\n\nCurrent balance: " + totalAmount + "\nCurrent capacity: " + cassette.entrySet());
+                        System.out.println("Operation result:\nEUR amount: " + totalEurAmount + ", nominal: " + banknote.nominal + "\n\nCurrent balance: " + totalEurAmount + "\nCurrent capacity: " + cassette.entrySet());
                         return;
                     case RUB:
-                        System.out.println("Operation result:\nRUB " + totalAmount + ", nominal: " + banknote.nominal + "\n\nCurrent balance: " + totalAmount + "\nCurrent capacity: " + cassette.entrySet());
+                        System.out.println("Operation result:\nRUB amount: " + totalRubAmount + ", nominal: " + banknote.nominal + "\n\nCurrent balance: " + totalRubAmount + "\nCurrent capacity: " + cassette.entrySet());
                         return;
                 }
 
@@ -115,7 +166,18 @@ public class ATM {
         }
     }
 
-    public static BigDecimal getBalance() {
+    public static BigDecimal getBalance(Currency currency) {
+        BigDecimal totalAmount = BigDecimal.ZERO;
+        switch (currency) {
+            case USD:
+                totalAmount = totalUsdAmount;
+                break;
+            case EUR:
+                totalAmount = totalEurAmount;
+                break;
+            case RUB:
+                totalAmount = totalRubAmount;
+        }
         return totalAmount;
     }
 

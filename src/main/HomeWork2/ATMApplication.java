@@ -14,6 +14,7 @@ public class ATMApplication {
         int[] availableActions = {1, 2, 3, 4};
         int action = 0;
         BigDecimal amount;
+        Currency currency;
         Currency enteredCurrencyFrom;
         Currency enteredCurrencyTo;
         int enteredNominal = 0;
@@ -89,8 +90,8 @@ public class ATMApplication {
 
                         banknote = ATM.banknoteValidator(enteredCurrencyTo, enteredNominal);
 
-                        ATM.deposit(banknote, currencyConversionResultAmount);
-                        ATM.calcTotalAmount(currencyConversionResultAmount, 1);
+                        ATM.deposit(enteredCurrencyTo, banknote, currencyConversionResultAmount);
+                        ATM.calcTotalAmount(enteredCurrencyTo, currencyConversionResultAmount, 1);
                         ATM.getTotalAmount(action, banknote);
 
                         break;
@@ -116,17 +117,24 @@ public class ATMApplication {
 
                         banknote = ATM.banknoteValidator(enteredCurrencyTo, enteredNominal);
 
-                        ATM.withdraw(banknote, currencyConversionResultAmount);
-                        ATM.calcTotalAmount(currencyConversionResultAmount, 2);
+                        ATM.withdraw(enteredCurrencyTo, banknote, currencyConversionResultAmount);
+                        ATM.calcTotalAmount(enteredCurrencyTo, currencyConversionResultAmount, 2);
                         ATM.getTotalAmount(action, banknote);
 
                     case 3:
-                        BigDecimal balance = ATM.getBalance();
-                        System.out.println("Your balance is " + balance);
-                        break;
+                        if(action == 3) {
+                            System.out.println("Enter a currency");
+                            currency = valueOf(scan.nextLine().toUpperCase());
+
+                            BigDecimal balance = ATM.getBalance(currency);
+                            System.out.println("Your balance is " + balance);
+                            break;
+                        }
                     case 4:
+                        if(action == 4) {
                         System.out.println("Exiting the program");
                         System.exit(1);
+                        }
                 }
 
             } catch (InputMismatchException | IllegalArgumentException e) {
