@@ -121,20 +121,22 @@ public class ATMApplication {
                         ATM.calcTotalAmount(enteredCurrencyTo, currencyConversionResultAmount, 2);
                         ATM.getTotalAmount(action, banknote);
 
-                    case 3:
-                        if(action == 3) {
-                            System.out.println("Enter a currency");
-                            currency = valueOf(scan.nextLine().toUpperCase());
+                        break;
 
-                            BigDecimal balance = ATM.getBalance(currency);
-                            System.out.println("Your balance is " + balance);
-                            break;
-                        }
+                    case 3:
+
+                        System.out.println("Enter a currency");
+                        currency = valueOf(scan.nextLine().toUpperCase());
+
+                        BigDecimal balance = ATM.getBalance(currency);
+                        System.out.println("Your balance is " + balance);
+                        break;
+
                     case 4:
-                        if(action == 4) {
+
                         System.out.println("Exiting the program");
                         System.exit(1);
-                        }
+
                 }
 
             } catch (InputMismatchException | IllegalArgumentException e) {
