@@ -88,7 +88,7 @@ public class ATMApplication {
                         System.out.println("Enter the nominal with which you want to receive the requested amount " + currencyConversionResultAmount + " :");
                         enteredNominal = Integer.parseInt(scan.nextLine());
 
-                        banknote = ATM.banknoteValidator(enteredCurrencyTo, enteredNominal);
+                        banknote = ATM.createBanknote(enteredCurrencyTo, enteredNominal);
 
                         ATM.deposit(banknote, currencyConversionResultAmount);
                         ATM.calcTotalAmount(enteredCurrencyTo, currencyConversionResultAmount, 1);
@@ -115,7 +115,7 @@ public class ATMApplication {
                         System.out.println("Enter the nominal with which you want to receive the requested amount " + currencyConversionResultAmount + " :");
                         enteredNominal = Integer.parseInt(scan.nextLine());
 
-                        banknote = ATM.banknoteValidator(enteredCurrencyTo, enteredNominal);
+                        banknote = ATM.createBanknote(enteredCurrencyTo, enteredNominal);
 
                         ATM.withdraw(banknote, currencyConversionResultAmount);
                         ATM.calcTotalAmount(enteredCurrencyTo, currencyConversionResultAmount, 2);

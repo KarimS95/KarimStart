@@ -104,7 +104,7 @@ public class ATM {
         }
     }
 
-    public static Banknote banknoteValidator(Currency currency, int nominal) {
+    public static Banknote createBanknote(Currency currency, int nominal) {
         switch (currency) {
             case USD:
                 return new DollarBanknote(currency, nominal);
