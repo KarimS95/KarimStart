@@ -90,7 +90,7 @@ public class ATMApplication {
 
                         banknote = ATM.banknoteValidator(enteredCurrencyTo, enteredNominal);
 
-                        ATM.deposit(enteredCurrencyTo, banknote, currencyConversionResultAmount);
+                        ATM.deposit(banknote, currencyConversionResultAmount);
                         ATM.calcTotalAmount(enteredCurrencyTo, currencyConversionResultAmount, 1);
                         ATM.getTotalAmount(action, banknote);
 
@@ -117,7 +117,7 @@ public class ATMApplication {
 
                         banknote = ATM.banknoteValidator(enteredCurrencyTo, enteredNominal);
 
-                        ATM.withdraw(enteredCurrencyTo, banknote, currencyConversionResultAmount);
+                        ATM.withdraw(banknote, currencyConversionResultAmount);
                         ATM.calcTotalAmount(enteredCurrencyTo, currencyConversionResultAmount, 2);
                         ATM.getTotalAmount(action, banknote);
 
@@ -130,6 +130,7 @@ public class ATMApplication {
 
                         BigDecimal balance = ATM.getBalance(currency);
                         System.out.println("Your balance is " + balance);
+
                         break;
 
                     case 4:
