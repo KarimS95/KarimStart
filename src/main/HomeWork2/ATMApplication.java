@@ -91,7 +91,7 @@ public class ATMApplication {
                         banknote = ATM.createBanknote(enteredCurrencyTo, enteredNominal);
 
                         ATM.deposit(banknote, currencyConversionResultAmount);
-                        ATM.calcTotalAmount(enteredCurrencyTo, currencyConversionResultAmount, 1);
+                        ATM.calcTotalAmount(banknote, currencyConversionResultAmount, 1);
                         ATM.getTotalAmount(action, banknote);
 
                         break;
@@ -118,7 +118,7 @@ public class ATMApplication {
                         banknote = ATM.createBanknote(enteredCurrencyTo, enteredNominal);
 
                         ATM.withdraw(banknote, currencyConversionResultAmount);
-                        ATM.calcTotalAmount(enteredCurrencyTo, currencyConversionResultAmount, 2);
+                        ATM.calcTotalAmount(banknote, currencyConversionResultAmount, 2);
                         ATM.getTotalAmount(action, banknote);
 
                         break;

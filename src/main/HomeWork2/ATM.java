@@ -104,7 +104,7 @@ public class ATM {
         }
     }
 
-    public static Banknote createBanknote(Currency currency, int nominal) {
+    public static Banknote createBanknote(Currency currency, int nominal) { //Создание объекта класса DollarBanknote/Eur/Rub
         switch (currency) {
             case USD:
                 return new DollarBanknote(currency, nominal);
@@ -117,10 +117,10 @@ public class ATM {
         }
     }
 
-    public static void calcTotalAmount(Currency currency, BigDecimal amount, int action) {
+    public static void calcTotalAmount(Banknote banknote, BigDecimal amount, int action) {
         switch (action) {
             case 1:
-                switch (currency) {
+                switch (banknote.currency) {
                     case USD:
                         totalUsdAmount = totalUsdAmount.add(amount);
                         break;
@@ -133,7 +133,7 @@ public class ATM {
                 break;
 
             case 2:
-                switch (currency) {
+                switch (banknote.currency) {
                     case USD:
                         totalUsdAmount = totalUsdAmount.subtract(amount);
                         break;
