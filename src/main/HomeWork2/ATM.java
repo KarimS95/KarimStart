@@ -197,11 +197,11 @@ public class ATM {
                         amount = amount.remainder(billValue); //Вычисление значения amount в результате получения остатка при делении: 237 / 100 = 2.37 ; 237 - (2*100) = 37; 37 / 20 = 1.85; 37 - (1*20) = 17 и т.д.
                         countOfBills += countUsdBills[i];
                     }
-                    break;
                 } else {
                     System.err.println("Invalid amount. Enter a correct amount for " + currency);
                     System.exit(1);
                 }
+                break;
 
             case EUR:
                 if (amount.remainder(BigDecimal.valueOf(5)).equals(BigDecimal.ZERO)) {
@@ -213,11 +213,11 @@ public class ATM {
                         amount = amount.remainder(billValue);
                         countOfBills += countEurBills[i];
                     }
-                    break;
                 } else {
                     System.err.println("Invalid amount. Enter a correct amount for " + currency);
                     System.exit(1);
                 }
+                break;
 
             case RUB:
                 if (amount.remainder(BigDecimal.valueOf(50)).equals(BigDecimal.ZERO)) {
@@ -229,11 +229,11 @@ public class ATM {
                         amount = amount.remainder(billValue);
                         countOfBills += countRubBills[i];
                     }
-                    break;
                 } else {
                     System.err.println("Invalid amount. Enter a correct amount for " + currency);
                     System.exit(1);
                 }
+                break;
         }
         return countOfBills;
     }
