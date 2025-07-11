@@ -20,7 +20,6 @@ public class ATMApplication {
         BigDecimal currencyConversionResultAmount = new BigDecimal(0);
         Banknote banknote;
         String enteredAction = null;
-        boolean isValidAction = false;
         boolean isProcessGoing = true;
         boolean isFirstIteration = true;
 
