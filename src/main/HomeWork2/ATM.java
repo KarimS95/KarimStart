@@ -26,6 +26,8 @@ public class ATM {
     private static BigDecimal totalEurAmount = BigDecimal.valueOf(4000);
     private static BigDecimal totalRubAmount = BigDecimal.valueOf(5000);
 
+    static int[] availableActions = {1, 2, 3, 4};
+
     public static void deposit(Banknote banknote, BigDecimal amount) {
         if (cassette != null) {
             int banknoteCount = amountValidator(amount, banknote.currency);
@@ -236,5 +238,20 @@ public class ATM {
                 break;
         }
         return countOfBills;
+    }
+
+    public static void isValidAction(int action) {
+        boolean isValidAction = false;
+
+        for (int validAction : availableActions) {
+            if (validAction == action) {
+                isValidAction = true;
+                break;
+            }
+        }
+
+        if (!isValidAction) {
+            System.err.println("Invalid action\nEnter a action:\n1 - deposit\n2 - withdraw\n3 - checking balance\n4 - Exit");
+        }
     }
 }

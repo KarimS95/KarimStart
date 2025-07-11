@@ -11,7 +11,6 @@ public class ATMApplication {
     public static void main(String[] args) {
 
         Scanner scan = new Scanner(System.in).useLocale(Locale.US);
-        int[] availableActions = {1, 2, 3, 4};
         int action = 0;
         BigDecimal amount;
         Currency currency;
@@ -38,18 +37,7 @@ public class ATMApplication {
             try {
                 action = Integer.parseInt(scan.nextLine());
 
-                for (int validAction : availableActions) {
-                    if (validAction == action) {
-                        isValidAction = true;
-                        break;
-                    }
-                }
-
-                if (!isValidAction) {
-                    System.err.println("Invalid action\nEnter a action:\n1 - deposit\n2 - withdraw\n3 - checking balance\n4 - Exit");
-                }
-
-                isValidAction = false;
+                ATM.isValidAction(action);
 
                 switch (action) {
                     case 1:
