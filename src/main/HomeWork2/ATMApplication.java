@@ -26,11 +26,13 @@ public class ATMApplication {
         while (isProcessGoing) {
 
             if (isFirstIteration) {
-                System.out.println("\nWelcome to ATM!\nATM menu:\nEnter a action:\n1 - deposit\n2 - withdraw\n3 - check balance\n4 - exit");
+                System.out.println("\nWelcome to ATM!\n\nATM menu:\nEnter a action:\n1 - deposit\n2 - withdraw\n3 - check balance\n4 - exit");
+                System.out.println(ATM.getRates());
                 isFirstIteration = false;
 
             } else {
-                System.out.println("\nATM menu:\nEnter a action:\n1 - deposit\n2 - withdraw\n3 - check balance\n4 - exit");
+                System.out.println("\nATM menu:\n\nEnter a action:\n1 - deposit\n2 - withdraw\n3 - check balance\n4 - exit");
+                System.out.println(ATM.getRates());
             }
 
             try {

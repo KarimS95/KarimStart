@@ -28,6 +28,8 @@ public class ATM {
 
     static int[] availableActions = {1, 2, 3, 4};
 
+    static String rates = "USD to EUR: 0.9\nUSD to RUB: 75";
+
     public static void deposit(Banknote banknote, BigDecimal amount) {
         if (cassette != null) {
             int banknoteCount = amountValidator(amount, banknote.currency);
@@ -253,5 +255,9 @@ public class ATM {
         if (!isValidAction) {
             System.err.println("Invalid action\nEnter a action:\n1 - deposit\n2 - withdraw\n3 - checking balance\n4 - Exit");
         }
+    }
+
+    public static String getRates() {
+        return rates;
     }
 }
