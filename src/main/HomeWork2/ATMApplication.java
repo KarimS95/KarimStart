@@ -81,7 +81,7 @@ public class ATMApplication {
 
                         ATM.deposit(banknote, currencyConversionResultAmount);
                         ATM.calcTotalAmount(banknote, currencyConversionResultAmount, 1);
-                        ATM.getTotalAmount(action, banknote);
+                        System.out.println(ATM.getTotalAmount(action, banknote));
 
                         break;
 
@@ -108,7 +108,7 @@ public class ATMApplication {
 
                         ATM.withdraw(banknote, currencyConversionResultAmount);
                         ATM.calcTotalAmount(banknote, currencyConversionResultAmount, 2);
-                        ATM.getTotalAmount(action, banknote);
+                        System.out.println(ATM.getTotalAmount(action, banknote));
 
                         break;
 

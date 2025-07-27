@@ -152,23 +152,26 @@ public class ATM {
 
     }
 
-    public static void getTotalAmount(int action, Banknote banknote) {
+    public static String getTotalAmount(int action, Banknote banknote) {
+        String result = null;
+
         switch (action) {
             case 1, 2:
                 switch (banknote.currency) {
                     case USD:
-                        System.out.println("Operation result:\nUSD amount: " + totalUsdAmount + ", nominal: " + banknote.nominal + "\n\nCurrent balance: " + totalUsdAmount + "\nCurrent capacity: " + cassette.entrySet());
-                        return;
+                        result = "Operation result:\nUSD amount: " + totalUsdAmount + ", nominal: " + banknote.nominal + "\n\nCurrent balance: " + totalUsdAmount + "\nCurrent capacity: " + cassette.entrySet();
+                        break;
                     case EUR:
-                        System.out.println("Operation result:\nEUR amount: " + totalEurAmount + ", nominal: " + banknote.nominal + "\n\nCurrent balance: " + totalEurAmount + "\nCurrent capacity: " + cassette.entrySet());
-                        return;
+                        result = "Operation result:\nEUR amount: " + totalEurAmount + ", nominal: " + banknote.nominal + "\n\nCurrent balance: " + totalEurAmount + "\nCurrent capacity: " + cassette.entrySet();
+                        break;
                     case RUB:
-                        System.out.println("Operation result:\nRUB amount: " + totalRubAmount + ", nominal: " + banknote.nominal + "\n\nCurrent balance: " + totalRubAmount + "\nCurrent capacity: " + cassette.entrySet());
-                        return;
+                        result = "Operation result:\nRUB amount: " + totalRubAmount + ", nominal: " + banknote.nominal + "\n\nCurrent balance: " + totalRubAmount + "\nCurrent capacity: " + cassette.entrySet();
+                        break;
                 }
 
                 break;
         }
+        return result;
     }
 
     public static BigDecimal getBalance(Currency currency) {
