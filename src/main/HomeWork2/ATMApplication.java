@@ -70,8 +70,6 @@ public class ATMApplication {
 
                         currencyConversionResultAmount = convert(amount, enteredCurrencyFrom, enteredCurrencyTo);
 
-                        ATM.amountValidator(currencyConversionResultAmount, enteredCurrencyTo);
-
                         System.out.println("Converting result: from " + enteredCurrencyFrom + " to " + enteredCurrencyTo + " = " + currencyConversionResultAmount);
 
                         System.out.println("Enter the nominal with which you want to receive the requested amount " + currencyConversionResultAmount + " :");
@@ -80,8 +78,6 @@ public class ATMApplication {
                         banknote = ATM.createBanknote(enteredCurrencyTo, enteredNominal);
 
                         ATM.deposit(banknote, currencyConversionResultAmount);
-                        ATM.calcTotalAmount(banknote, currencyConversionResultAmount, 1);
-                        System.out.println(ATM.getTotalAmount(action, banknote));
 
                         break;
 
@@ -97,8 +93,6 @@ public class ATMApplication {
 
                         currencyConversionResultAmount = convert(amount, enteredCurrencyFrom, enteredCurrencyTo);
 
-                        ATM.amountValidator(currencyConversionResultAmount, enteredCurrencyTo);
-
                         System.out.println("Converting result: from " + enteredCurrencyFrom + " to " + enteredCurrencyTo + " = " + currencyConversionResultAmount);
 
                         System.out.println("Enter the nominal with which you want to receive the requested amount " + currencyConversionResultAmount + " :");
@@ -107,8 +101,6 @@ public class ATMApplication {
                         banknote = ATM.createBanknote(enteredCurrencyTo, enteredNominal);
 
                         ATM.withdraw(banknote, currencyConversionResultAmount);
-                        ATM.calcTotalAmount(banknote, currencyConversionResultAmount, 2);
-                        System.out.println(ATM.getTotalAmount(action, banknote));
 
                         break;
 
@@ -139,4 +131,3 @@ public class ATMApplication {
         }
     }
 }
-

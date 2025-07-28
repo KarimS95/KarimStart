@@ -44,7 +44,9 @@ public class ATM {
 
                     System.out.println("\nCurrent balance: " + ATM.getBalance(banknote.currency) + "\nCurrent capacity: " + cassette.entrySet());
                     cassette.put(banknote.currency, updatedNominalCount);
+                    ATM.calcTotalAmount(banknote, amount, 1);
                     System.out.println("\nDeposit successful: +" + amount + " " + banknote.currency);
+                    System.out.println(ATM.getTotalAmount(1, banknote));
                 } else {
                     System.err.println("Nominals count in cassette must be: " + cassetteCapacity + "\nEntered nominals: " + banknoteCount + " + " + "current nominals: " + currentCurrencyNominalsCount + " = " + (banknoteCount + currentCurrencyNominalsCount));
                     System.exit(1);
@@ -69,6 +71,8 @@ public class ATM {
                         System.out.println("\nCurrent balance: " + ATM.getBalance(banknote.currency) + "\nCurrent capacity: " + cassette.entrySet());
                         cassette.put(banknote.currency, updatedNominalCount);
                         System.out.println("\nWithdrawn successful: -" + amount + " " + banknote.currency);
+                        ATM.calcTotalAmount(banknote, amount, 2);
+                        System.out.println(ATM.getTotalAmount(2, banknote));
                     } else if (currentCurrencyNominalsCount < banknoteCount) {
                         System.err.println("There are not enough nominals in the cassette: " + "\n" + "Current nominals state: " + currentCurrencyNominalsCount + "\nEntered nominals: " + banknoteCount);
                         System.exit(1);
@@ -83,6 +87,8 @@ public class ATM {
                         System.out.println("\nCurrent balance: " + ATM.getBalance(banknote.currency) + "\nCurrent capacity: " + cassette.entrySet());
                         cassette.put(banknote.currency, updatedNominalCount);
                         System.out.println("\nWithdrawn successful: -" + amount + " " + banknote.currency);
+                        ATM.calcTotalAmount(banknote, amount, 2);
+                        System.out.println(ATM.getTotalAmount(2, banknote));
                     } else if (currentCurrencyNominalsCount < banknoteCount) {
                         System.err.println("There are not enough nominals in the cassette: " + "\n" + "Current nominals state: " + currentCurrencyNominalsCount + "\nEntered nominals: " + banknoteCount);
                         System.exit(1);
@@ -97,6 +103,8 @@ public class ATM {
                         System.out.println("\nCurrent balance: " + ATM.getBalance(banknote.currency) + "\nCurrent capacity: " + cassette.entrySet());
                         cassette.put(banknote.currency, updatedNominalCount);
                         System.out.println("\nWithdrawn successful: -" + amount + " " + banknote.currency);
+                        ATM.calcTotalAmount(banknote, amount, 2);
+                        System.out.println(ATM.getTotalAmount(2, banknote));
                     } else if (currentCurrencyNominalsCount < banknoteCount) {
                         System.err.println("There are not enough nominals in the cassette: " + "\n" + "Current nominals state: " + currentCurrencyNominalsCount + "\nEntered nominals: " + banknoteCount);
                         System.exit(1);
